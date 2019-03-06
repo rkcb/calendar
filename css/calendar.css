@@ -1,0 +1,17 @@
+
+* {
+    box-sizing: border-box;
+}
+
+#calendar div.row, .container div.col-sm {
+    color: blue;
+    border: 1px solid black;
+}
+
+.day, tr {
+    text-align: center;
+}
+
+
+
+
