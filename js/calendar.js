@@ -43,7 +43,52 @@
 
     }
 
+    function daysBeforeFirst() {
+        let now = new Date();
+        now.setDate(1);
+
+        // number of days before the day one
+        return (6 + now.getDay()) % 7;
+    }
+
+    function getDaysInMonth(date){
+        date.setMonth(date.getMonth() + 1);
+        date.setDate(0);
+        return date.getDate();
+    }
+
+    function properCalendarElements(date = false) {
+
+        let prefix = daysBeforeFirst();
+        let days = document.getElementsByClassName("day");
+        if (!date) {
+            date = new Date();
+        }
+        let daysInMonth = getDaysInMonth(date);
+
+        return days.splice(prefix, prefix + daysInMonth);
+    }
+
+    function getMonthDateElements(date = false) {
+        if (!date)
+            date = new Date();
+        let days = Array.from( document.getElementsByClassName("day") );
+        let prefix = daysBeforeFirst();
+        let daysInMonth = getDaysInMonth(date);
+        return days.slice(prefix, prefix + daysInMonth);
+    }
+
+    function addEvent() {
+        let days = getMonthDateElements();
+        let day = days[days.length-1];
+        
+        // day.style.bott = "red";
+        // day.style.text-deco
+    }
+
     setMonthDates();
     grayOutIrrelevantDays();
+    addEvent();
+
 
 })()
