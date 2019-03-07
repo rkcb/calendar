@@ -1,4 +1,10 @@
 (function () {
+    /*jshint esversion: 6 */
+    "use strict"
+
+    let currentDate = new Date(); // now date
+    let currentMonth = currentDate.getMonth();
+    let selectedMonth = null;
 
     function getFirstCalendarDate(date = false) {
         if (!date)
@@ -9,6 +15,9 @@
         return date;
     }
 
+    /**
+     * adds the date numbers to table cells
+     */
     function setMonthDates(){
         let now = getFirstCalendarDate(new Date());
         let days = document.getElementsByClassName("day");
@@ -43,8 +52,9 @@
 
     }
 
-    function daysBeforeFirst() {
-        let now = new Date();
+    function daysBeforeFirst(date = false) {
+
+        let now = date === false ? new Date() : date;
         now.setDate(1);
 
         // number of days before the day one
@@ -69,26 +79,40 @@
         return days.splice(prefix, prefix + daysInMonth);
     }
 
+    /**
+     * get the element array indexed with the month dates
+     * @param date
+     * @returns {Element[]}
+     */
     function getMonthDateElements(date = false) {
-        if (!date)
+        if (date === false) {
             date = new Date();
+        }
         let days = Array.from( document.getElementsByClassName("day") );
         let prefix = daysBeforeFirst();
         let daysInMonth = getDaysInMonth(date);
         return days.slice(prefix, prefix + daysInMonth);
     }
 
-    function addEvent() {
+    /**
+     * add an event decoration
+     * @param date
+     */
+    function addEvent(date) {
         let days = getMonthDateElements();
         let day = days[days.length-1];
-        
-        // day.style.bott = "red";
-        // day.style.text-deco
+        day.closest("td").style.borderBottom = "solid 3px red";
+    }
+
+    function decorateToday(){
+        let days = getMonthDateElements();
+        let today = days[currentDate.getDate() - 1];
+        today.closest("td").style.backgroundColor = "lightgoldenrodyellow";
     }
 
     setMonthDates();
     grayOutIrrelevantDays();
-    addEvent();
-
+    addEvent(new Date());
+    decorateToday();
 
 })()
