@@ -38,6 +38,11 @@
         now.setDate(1);
         let days = document.getElementsByClassName("day");
 
+        // restore possibly lightgray days back to black
+        for (let i = 0; i < days; i++) {
+            days[i].style.color = "black";
+        }
+
         // number of days before the day one
         let prefix = daysBeforeFirst(now);
 
@@ -54,6 +59,8 @@
         for (let j = suffix; j < days.length; j++) {
             days[j].style.color = "lightgray";
         }
+
+
 
     }
 
@@ -123,18 +130,43 @@
         }
     }
 
+    function monthName(date) {
+        let names = ["Jan", "Feb", "Mar", "Apr",
+            "May", "Jun", "Jul", "Aug",
+            "Sep", "Oct", "Nov", "Dec"];
+        return names[date.getMonth()];
+    }
+
     /**
+     * updates the month
      * @param int offset
      */
     function updateMonth(offset = 0) {
-        currentDate.setMonth(currentDate.getMonth() + offset);
+        let newMonth = currentDate.getMonth() + offset;
+        currentDate.setMonth(newMonth);
         setMonthDates(currentDate);
         grayOutIrrelevantDays(currentDate);
         // addEvent(new Date());
         decorateToday(currentDate);
-
+        document.getElementById("month").innerText = monthName(currentDate);
     }
 
+    function addCalendarEventListeners() {
+        document.getElementById("month-prev").addEventListener("click", function (event) {
+            event.preventDefault();
+            console.log("clicked prev");
+        });
+        document.getElementById("month-next").addEventListener("click", updateMonth(1));
+    }
+
+    document.getElementById("month-prev").addEventListener("click", function () {
+        updateMonth(-1);
+    });
+    document.getElementById("month-next").addEventListener("click", function () {
+        updateMonth(1);
+    });
+
+    // addCalendarEventListeners();
     updateMonth();
 
 

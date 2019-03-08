@@ -12,6 +12,26 @@
     text-align: center;
 }
 
+#month-prev, #month-next {
+    font-size: 2rem;
+    color: grey;
+    width: 30%;
+    cursor: pointer
+}
+
+#calendar-month {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#calendar-month p {
+    margin: auto;
+}
+
+
+
 
 
 
