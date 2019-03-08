@@ -1,25 +1,30 @@
 (function () {
-    /*jshint esversion: 6 */
     "use strict"
 
-    let currentDate = new Date(); // now date
-    let currentMonth = currentDate.getMonth();
-    let selectedMonth = null;
+    let today = new Date();
+    let currentDate = new Date(); // this date will change with navigation
 
-    function getFirstCalendarDate(date = false) {
-        if (!date)
-            date = new Date();
+    /**
+     * return a Date which points to the day 1--
+     * @param date
+     * @returns {*}
+     */
+    function getFirstCalendarDate(date) {
+        let date2 = copy(date);
+        date2.setDate(1);
+        date2.setHours(-24 * ((date.getDay() + 6 ) % 7) );
+        return date2;
+    }
 
-        date.setDate(1);
-        date.setHours(-24 * ((date.getDay() + 6 ) % 7) );
-        return date;
+    function copy(date) {
+        return new Date(date.getTime());
     }
 
     /**
      * adds the date numbers to table cells
      */
-    function setMonthDates(){
-        let now = getFirstCalendarDate(new Date());
+    function setMonthDates(date){
+        let now = getFirstCalendarDate(date);
         let days = document.getElementsByClassName("day");
         for (let i = 0; i < days.length; i++){
             days[i].innerHTML = now.getDate().toString();
@@ -27,14 +32,14 @@
         }
     }
 
-    function grayOutIrrelevantDays(){
+    function grayOutIrrelevantDays(date){
 
-        let now = new Date();
+        let now = copy(date);
         now.setDate(1);
         let days = document.getElementsByClassName("day");
 
         // number of days before the day one
-        let prefix = (6 + now.getDay()) % 7;
+        let prefix = daysBeforeFirst(now);
 
         for (let j = 0; j < prefix; j++) {
             days[j].style.color = "lightgray";
@@ -52,30 +57,34 @@
 
     }
 
-    function daysBeforeFirst(date = false) {
-
-        let now = date === false ? new Date() : date;
-        now.setDate(1);
-
+    /**
+     * number of the previous month days
+     * @param date
+     * @returns {number}
+     */
+    function daysBeforeFirst(date) {
+        let date2 = copy(date);
+        date2.setDate(1);
         // number of days before the day one
-        return (6 + now.getDay()) % 7;
+        return (6 + date2.getDay()) % 7;
     }
 
+    /**
+     * the number of days in a month
+     * @param date
+     * @returns {number}
+     */
     function getDaysInMonth(date){
-        date.setMonth(date.getMonth() + 1);
-        date.setDate(0);
+        let date2 = copy(date);
+        date2.setMonth(date2.getMonth() + 1);
+        date2.setDate(0);
         return date.getDate();
     }
 
-    function properCalendarElements(date = false) {
-
-        let prefix = daysBeforeFirst();
+    function properCalendarElements(date) {
+        let prefix = daysBeforeFirst(date);
         let days = document.getElementsByClassName("day");
-        if (!date) {
-            date = new Date();
-        }
         let daysInMonth = getDaysInMonth(date);
-
         return days.splice(prefix, prefix + daysInMonth);
     }
 
@@ -84,12 +93,9 @@
      * @param date
      * @returns {Element[]}
      */
-    function getMonthDateElements(date = false) {
-        if (date === false) {
-            date = new Date();
-        }
+    function getMonthDateElements(date) {
         let days = Array.from( document.getElementsByClassName("day") );
-        let prefix = daysBeforeFirst();
+        let prefix = daysBeforeFirst(date);
         let daysInMonth = getDaysInMonth(date);
         return days.slice(prefix, prefix + daysInMonth);
     }
@@ -99,20 +105,38 @@
      * @param date
      */
     function addEvent(date) {
-        let days = getMonthDateElements();
+        let days = getMonthDateElements(date);
         let day = days[days.length-1];
         day.closest("td").style.borderBottom = "solid 3px red";
     }
 
-    function decorateToday(){
-        let days = getMonthDateElements();
-        let today = days[currentDate.getDate() - 1];
-        today.closest("td").style.backgroundColor = "lightgoldenrodyellow";
+    /**
+     * @param Date currentDate chosen date by the user
+     */
+    function decorateToday(currentDate){
+        // show today only if in correct month
+        let today = new Date();
+        if (today.getMonth() === currentDate.getMonth()) {
+            let days = getMonthDateElements(currentDate);
+            let day = days[today.getDate() - 1];
+            day.closest("td").style.backgroundColor = "#f8e5ab";
+        }
     }
 
-    setMonthDates();
-    grayOutIrrelevantDays();
-    addEvent(new Date());
-    decorateToday();
+    /**
+     * @param int offset
+     */
+    function updateMonth(offset = 0) {
+        currentDate.setMonth(currentDate.getMonth() + offset);
+        setMonthDates(currentDate);
+        grayOutIrrelevantDays(currentDate);
+        // addEvent(new Date());
+        decorateToday(currentDate);
+
+    }
+
+    updateMonth();
+
+
 
 })()
