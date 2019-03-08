@@ -1,7 +1,7 @@
 (function () {
     "use strict"
 
-    let today = new Date();
+    const today = new Date();
     let currentDate = new Date(); // this date will change with navigation
 
     /**
@@ -149,6 +149,7 @@
         // addEvent(new Date());
         decorateToday(currentDate);
         document.getElementById("month").innerText = monthName(currentDate);
+        document.getElementById("year").innerText = currentDate.getFullYear();
     }
 
     function addCalendarEventListeners() {
