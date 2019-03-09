@@ -1,161 +1,172 @@
 (function () {
     "use strict"
 
-    const today = new Date();
-    Object.freeze(today);
-    let currentDate = new Date(); // this date will change with navigation
-
     /**
-     * return a Date which points to the day 1--
-     * @param date
-     * @returns {*}
+     * creates a calendar logic and initializes the start date
+     * @param Date date start date
+     * @constructor
      */
-    function getFirstCalendarDate(date) {
-        let date2 = copy(date);
-        date2.setDate(1);
-        date2.setHours(-24 * ((date2.getDay() + 6) % 7));
-        return date2;
-    }
+    function Calendar(date = false){
 
-    function copy(date) {
-        return new Date(date.getTime());
-    }
+        const today = date === false ? new Date() : date;
+        Object.freeze(today);
+        let currentDate = copy(today); // this date will change with navigation
 
-    /**
-     * adds the date numbers to table cells
-     */
-    function setMonthDates(date) {
-        let now = getFirstCalendarDate(date);
-        let days = document.getElementsByClassName("day");
-        for (let i = 0; i < days.length; i++) {
-            days[i].innerHTML = now.getDate().toString();
-            now.setHours(24); // increases current date by 24h
-        }
-    }
-
-    function grayOutIrrelevantDays(date) {
-
-        let days = document.getElementsByClassName("day");
-
-        for (let i = 0; i < days.length; i++) {
-            days[i].style.color = "lightgray";
+        /**
+         * return a Date which points to the day 1--
+         * @param Date date
+         * @returns Date
+         */
+        function getFirstCalendarDate(date) {
+            let date2 = copy(date);
+            date2.setDate(1);
+            date2.setHours(-24 * ((date2.getDay() + 6) % 7));
+            return date2;
         }
 
-        days = getMonthDateElements(date);
-        for (let i = 0; i < days.length; i++) {
-            days[i].style.color = "black";
+        function copy(date) {
+            return new Date(date.getTime());
         }
-    }
 
-    /**
-     * number of the previous month days
-     * @param date
-     * @returns {number}
-     */
-    function daysBeforeFirst(date) {
-        let date2 = copy(date);
-        date2.setDate(1);
-        // number of days before the day one
-        return (6 + date2.getDay()) % 7;
-    }
-
-    /**
-     * the number of days in a month
-     * @param date
-     * @returns {number}
-     */
-    function getNumberOfDaysInMonth(date) {
-        let date2 = copy(date);
-        date2.setMonth(date2.getMonth() + 1);
-        date2.setDate(0);
-        return date2.getDate();
-    }
-
-    function properCalendarElements(date) {
-        let prefix = daysBeforeFirst(date);
-        let days = document.getElementsByClassName("day");
-        let daysInMonth = getNumberOfDaysInMonth(date);
-        return days.splice(prefix, prefix + daysInMonth);
-    }
-
-    /**
-     * get the month days only
-     * @param date
-     * @returns {Element[]}
-     */
-    function getMonthDateElements(date) {
-        let days = Array.from(document.getElementsByClassName("day"));
-        let prefix = daysBeforeFirst(date);
-        let daysInMonth = getNumberOfDaysInMonth(date);
-        return days.slice(prefix, prefix + daysInMonth);
-    }
-
-    /**
-     * add an event decoration
-     * @param date
-     */
-    function addEvent(date) {
-        let days = getMonthDateElements(date);
-        let day = days[days.length - 1];
-        day.closest("td").style.borderBottom = "solid 3px red";
-    }
-
-    /**
-     * @param Date currentDate chosen date by the user
-     */
-    function decorateToday(today, currentDate) {
-        // show today only if in correct month
-        if (today.getMonth() === currentDate.getMonth() &&
-            today.getFullYear() === currentDate.getFullYear()) {
-            let days = getMonthDateElements(currentDate);
-            let day = days[today.getDate() - 1];
-            day.closest("td").style.backgroundColor = "#f8e5ab";
-        } else { // remove the existing decoration
-            let days = getMonthDateElements(today);
-            let day = days[today.getDate() - 1];
-            day.closest("td").style.backgroundColor = "";
+        /**
+         * adds the date numbers to table cells
+         */
+        function setMonthDates(date) {
+            let now = getFirstCalendarDate(date);
+            let days = document.getElementsByClassName("day");
+            for (let i = 0; i < days.length; i++) {
+                days[i].innerHTML = now.getDate().toString();
+                now.setHours(24); // increases current date by 24h
+            }
         }
-    }
 
-    function monthName(date) {
-        let names = ["Jan", "Feb", "Mar", "Apr",
-            "May", "Jun", "Jul", "Aug",
-            "Sep", "Oct", "Nov", "Dec"];
-        return names[date.getMonth()];
-    }
+        function grayOutIrrelevantDays(date) {
 
-    /**
-     * updates the month
-     * @param int offset
-     */
-    function updateMonth(offset = 0) {
-        let newMonth = currentDate.getMonth() + offset;
-        currentDate.setMonth(newMonth);
-        setMonthDates(currentDate);
-        grayOutIrrelevantDays(currentDate);
-        // addEvent(new Date());
-        decorateToday(today, currentDate);
-        document.getElementById("month").innerText = monthName(currentDate);
-        document.getElementById("year").innerText = currentDate.getFullYear();
-    }
+            let days = document.getElementsByClassName("day");
 
-    function addCalendarEventListeners() {
-        document.getElementById("month-prev").addEventListener("click", function (event) {
-            event.preventDefault();
-            console.log("clicked prev");
+            for (let i = 0; i < days.length; i++) {
+                days[i].style.color = "lightgray";
+            }
+
+            days = getMonthDateElements(date);
+            for (let i = 0; i < days.length; i++) {
+                days[i].style.color = "black";
+            }
+        }
+
+        /**
+         * number of the previous month days
+         * @param date
+         * @returns {number}
+         */
+        function daysBeforeFirst(date) {
+            let date2 = copy(date);
+            date2.setDate(1);
+            // number of days before the day one
+            return (6 + date2.getDay()) % 7;
+        }
+
+        /**
+         * the number of days in a month
+         * @param date
+         * @returns {number}
+         */
+        function getNumberOfDaysInMonth(date) {
+            let date2 = copy(date);
+            date2.setMonth(date2.getMonth() + 1);
+            date2.setDate(0);
+            return date2.getDate();
+        }
+
+        function properCalendarElements(date) {
+            let prefix = daysBeforeFirst(date);
+            let days = document.getElementsByClassName("day");
+            let daysInMonth = getNumberOfDaysInMonth(date);
+            return days.splice(prefix, prefix + daysInMonth);
+        }
+
+        /**
+         * get the month days only
+         * @param date
+         * @returns {Element[]}
+         */
+        function getMonthDateElements(date) {
+            let days = Array.from(document.getElementsByClassName("day"));
+            let prefix = daysBeforeFirst(date);
+            let daysInMonth = getNumberOfDaysInMonth(date);
+            return days.slice(prefix, prefix + daysInMonth);
+        }
+
+        /**
+         * add an event decoration
+         * @param date
+         */
+        function addEvent(date) {
+            let days = getMonthDateElements(date);
+            let day = days[days.length - 1];
+            day.closest("td").style.borderBottom = "solid 3px red";
+        }
+
+        /**
+         * @param Date currentDate chosen date by the user
+         */
+        function decorateToday(today, currentDate) {
+            // show today only if in correct month
+            if (today.getMonth() === currentDate.getMonth() &&
+                today.getFullYear() === currentDate.getFullYear()) {
+                let days = getMonthDateElements(currentDate);
+                let day = days[today.getDate() - 1];
+                day.closest("td").style.backgroundColor = "#f8e5ab";
+            } else { // remove the existing decoration
+                let days = getMonthDateElements(today);
+                let day = days[today.getDate() - 1];
+                day.closest("td").style.backgroundColor = "";
+            }
+        }
+
+        function monthName(date) {
+            let names = ["Jan", "Feb", "Mar", "Apr",
+                "May", "Jun", "Jul", "Aug",
+                "Sep", "Oct", "Nov", "Dec"];
+            return names[date.getMonth()];
+        }
+
+        /**
+         * updates the month
+         * @param int offset
+         */
+        function updateMonth(offset = 0) {
+            let newMonth = currentDate.getMonth() + offset;
+            currentDate.setMonth(newMonth);
+            setMonthDates(currentDate);
+            grayOutIrrelevantDays(currentDate);
+            // addEvent(new Date());
+            decorateToday(today, currentDate);
+            document.getElementById("month").innerText = monthName(currentDate);
+            document.getElementById("year").innerText = currentDate.getFullYear();
+        }
+
+        function addCalendarEventListeners() {
+            document.getElementById("month-prev").addEventListener("click",
+                updateMonth(-1));
+            document.getElementById("month-next").addEventListener("click",
+                updateMonth(1));
+        }
+
+        document.getElementById("month-prev").addEventListener("click", function () {
+            updateMonth(-1);
         });
-        document.getElementById("month-next").addEventListener("click", updateMonth(1));
+        document.getElementById("month-next").addEventListener("click", function () {
+            updateMonth(1);
+        });
+
+        updateMonth();
+
     }
 
-    document.getElementById("month-prev").addEventListener("click", function () {
-        updateMonth(-1);
-    });
-    document.getElementById("month-next").addEventListener("click", function () {
-        updateMonth(1);
-    });
+    let calendar = new Calendar();
+    Object.freeze(calendar);
 
-    // addCalendarEventListeners();
-    updateMonth();
 
 
 })()
