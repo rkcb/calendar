@@ -11,6 +11,10 @@
         const today = date === false ? new Date() : date;
         Object.freeze(today);
         let currentDate = copy(today); // this date will change with navigation
+        const showDayDialog = function(event){
+            $("#exampleModalCenter").modal("show");
+        };
+        Object.freeze(showDayDialog);
 
         /**
          * return a Date which points to the day 1--
@@ -144,6 +148,7 @@
             decorateToday(today, currentDate);
             document.getElementById("month").innerText = monthName(currentDate);
             document.getElementById("year").innerText = currentDate.getFullYear();
+            addClickListeners();
         }
 
         function addCalendarEventListeners() {
@@ -151,6 +156,24 @@
                 updateMonth(-1));
             document.getElementById("month-next").addEventListener("click",
                 updateMonth(1));
+        }
+
+        /**
+         * update day click listeners
+         */
+        function addClickListeners(){
+
+            // remove old click listeners
+            let allDays = document.getElementsByClassName("day");
+            for (let i = 0; i < allDays.length; i++) {
+                allDays[i].removeEventListener("click", showDayDialog, true);
+            }
+            // add current click listeners
+            let monthDays = getMonthDateElements(currentDate);
+            for (let i = 0; i < monthDays.length; i++) {
+                monthDays[i].addEventListener("click", showDayDialog, true);
+            }
+
         }
 
         document.getElementById("month-prev").addEventListener("click", function () {
