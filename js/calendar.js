@@ -2,6 +2,7 @@
     "use strict"
 
     const today = new Date();
+    Object.freeze(today);
     let currentDate = new Date(); // this date will change with navigation
 
     /**
@@ -120,13 +121,17 @@
     /**
      * @param Date currentDate chosen date by the user
      */
-    function decorateToday(currentDate){
+    function decorateToday(today, currentDate){
         // show today only if in correct month
-        let today = new Date();
-        if (today.getMonth() === currentDate.getMonth()) {
+        if (today.getMonth() === currentDate.getMonth() &&
+            today.getFullYear() === currentDate.getFullYear()) {
             let days = getMonthDateElements(currentDate);
             let day = days[today.getDate() - 1];
             day.closest("td").style.backgroundColor = "#f8e5ab";
+        } else { // remove the existing decoration
+            let days = getMonthDateElements(today);
+            let day = days[today.getDate() - 1];
+            day.closest("td").style.backgroundColor = "";
         }
     }
 
@@ -147,7 +152,7 @@
         setMonthDates(currentDate);
         grayOutIrrelevantDays(currentDate);
         // addEvent(new Date());
-        decorateToday(currentDate);
+        decorateToday(today, currentDate);
         document.getElementById("month").innerText = monthName(currentDate);
         document.getElementById("year").innerText = currentDate.getFullYear();
     }
