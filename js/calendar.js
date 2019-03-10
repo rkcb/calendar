@@ -167,11 +167,13 @@
             let allDays = document.getElementsByClassName("day");
             for (let i = 0; i < allDays.length; i++) {
                 allDays[i].removeEventListener("click", showDayDialog, true);
+                allDays[i].style.cursor = "";
             }
             // add current click listeners
             let monthDays = getMonthDateElements(currentDate);
             for (let i = 0; i < monthDays.length; i++) {
                 monthDays[i].addEventListener("click", showDayDialog, true);
+                monthDays[i].style.cursor = "pointer";
             }
 
         }
