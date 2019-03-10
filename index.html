@@ -37,57 +37,85 @@
                 <form id="tournamentdata" class="p-5">
 
                     <div class="form-group">
-                        <label for="organizer">Organizer</label>
+                        <!--<label for="organizer">Organizer</label>-->
                         <input type="text" name="organizer" class="form-control" id="organizer"
-                               placeholder="" value="1">
+                               placeholder="Organizer" value="">
                     </div>
 
                     <div class="form-group">
-                        <label for="title">Title</label>
+                        <!--<label for="title">Title</label>-->
                         <input type="text" name="title" class="form-control" id="title"
-                               placeholder="" value="2">
+                               placeholder="Title" value="">
                     </div>
 
                     <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" placeholder="" name="description" id="description" cols="40"
-                                  rows="3" value="3"></textarea>
+                        <!--<label for="description">Description</label>-->
+                        <textarea class="form-control" placeholder="Description" name="description" id="description" cols="40"
+                                  rows="3" value=""></textarea>
                     </div>
 
-                        <div class="form-row align-items-center">
-
-                            <div class="col-auto my-1">
-                                <label for="hours">Hours</label>
-                                <!--<input type="time" id="start" name="start"-->
-                                <!--min="0:00" max="24:00" required>-->
-                                <input class="form-control" id="hours" type="number" min="1" max="24">
-                            </div>
-
-                            <div class="col-auto my-1">
-                                <label for="minutes">Minutes</label>
-                                <input class="form-control" id="minutes" type="number" min="0" max="59">
-                            </div><!-- minutes field -->
-
-
-                        </div><!-- ends time fields -->
-
-                        <div class="form-group">
-                            <label for="location">Location</label>
-                            <!--<input type="text" class="form-control" id="description" placeholder="Description">-->
-                            <input type="text" name="location" class="form-control" id="location" value="5">
+                    <div class="form-row align-items-center form-group">
+                        <div class="col">
+                            <!--<label for="hours">Hours</label>-->
+                            <!--<input type="time" id="start" name="start"-->
+                            <!--min="0:00" max="24:00" required>-->
+                            <input class="form-control" placeholder="Hours" id="hours" type="number" min="1" max="24">
                         </div>
 
-                        <div class="form-group">
-                            <label for="price">Price</label>
-                            <!--<input type="text" class="form-control" id="description" placeholder="Description">-->
-                            <input type="text" name="price" class="form-control" id="price" value="6">
+                        <div class="col">
+                            <!--<label for="minutes">Minutes</label>-->
+                            <input class="form-control" placeholder="Minutes" id="minutes" type="number" min="0" max="59">
+                        </div><!-- minutes field -->
+
+
+                    </div><!-- ends time fields -->
+
+                    <div class="form-row align-items-center form-group">
+
+                        <div class="col">
+                            <!--<label for="date">Date</label>-->
+                            <!--<input type="time" id="start" name="start"-->
+                            <!--min="0:00" max="24:00" required>-->
+                            <input class="form-control" placeholder="Date" id="date" type="number" min="1" max="31">
                         </div>
 
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="masterPointCheck" value="7">
-                            <label class="form-check-label" name="masterpoints" for="masterPointCheck">Master point
-                                tournament</label>
+                        <!--TODO fix month id in the calendar -->
+                        <div class="col">
+                            <!--<label for="months">Month</label>-->
+                            <input class="form-control" placeholder="Month" id="months" type="number" min="1" max="12">
                         </div>
+
+                        <div class="col">
+                            <!--<label for="years">Year</label>-->
+                            <input class="form-control" placeholder="Year" id="years" type="number" min="2019">
+                        </div>
+
+
+
+
+                    </div><!-- ends time fields -->
+
+                    <div class="form-group">
+                        <!--<label for="location">Location</label>-->
+                        <!--<input type="text" class="form-control" id="description" placeholder="Description">-->
+                        <input type="text" name="location" placeholder="Location" class="form-control" id="location" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <!--<label for="price">Price</label>-->
+                        <!--<input type="text" class="form-control" id="description" placeholder="Description">-->
+                        <input type="text" name="price" placeholder="Price" class="form-control" id="price" value="">
+                    </div>
+
+                    <!--<div class="form-group form-check">-->
+                        <!--<input type="checkbox" class="form-check-input" id="masterPointCheck" value="7">-->
+                        <!--<label class="form-check-label" name="masterpoints" for="masterPointCheck">Master point-->
+                            <!--tournament</label>-->
+                    <!--</div>-->
+                    <div class="custom-control custom-checkbox mr-sm-2 form-group">
+                        <input type="checkbox" class="custom-control-input" id="masterPointCheck">
+                        <label class="custom-control-label" for="masterPointCheck">Masterpoint Tournament</label>
+                    </div>
 
                 </form>
 
