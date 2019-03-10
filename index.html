@@ -54,7 +54,22 @@
                                   rows="3" value="3"></textarea>
                     </div>
 
+                        <div class="form-row align-items-center">
 
+                            <div class="col-auto my-1">
+                                <label for="hours">Hours</label>
+                                <!--<input type="time" id="start" name="start"-->
+                                <!--min="0:00" max="24:00" required>-->
+                                <input class="form-control" id="hours" type="number" min="1" max="24">
+                            </div>
+
+                            <div class="col-auto my-1">
+                                <label for="minutes">Minutes</label>
+                                <input class="form-control" id="minutes" type="number" min="0" max="59">
+                            </div><!-- minutes field -->
+
+
+                        </div><!-- ends time fields -->
 
                         <div class="form-group">
                             <label for="location">Location</label>
