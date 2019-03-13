@@ -162,6 +162,22 @@
                 enableTime: true,
                 locale: "fi",
             });
+
+            function addUploadFileNames(){
+                let uploadElem = document.getElementById("upload");
+                uploadElem.addEventListener("change", function (event) {
+                    let elem = event.srcElement;
+                    let names = [];
+                    for (let i = 0; i < elem.files.length; i++) {
+                        names.push(elem.files[i].name);
+                    }
+                    let name = names.reduce( (acc, curr) => acc + ", " + curr);
+
+                    let nameElem = document.getElementById("filenames").innerHTML = name;
+
+                });
+            };
+            addUploadFileNames();
         }
 
         function addCalendarEventListeners() {
@@ -208,9 +224,6 @@
 
     let calendar = new Calendar();
     Object.freeze(calendar);
-
-
-
 
 
 
