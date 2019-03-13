@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/calendar.css">
 
+    <!-- Datetime picker -- flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Datetime localization -->
+    <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/fi.js"></script>
+
     <title>Calendar</title>
 </head>
 <body>
@@ -56,45 +63,41 @@
                     </div>
 
                     <div class="form-row align-items-center form-group">
-                        <div class="col">
+                        <input type="time" id="date" name="start" placeholder="Select Date and Time">
+                        <!--<div class="col">-->
                             <!--<label for="hours">Hours</label>-->
                             <!--<input type="time" id="start" name="start"-->
                             <!--min="0:00" max="24:00" required>-->
-                            <input class="form-control" placeholder="Hours" id="hours" type="number" min="1" max="24">
-                        </div>
+                            <!--<input class="form-control" placeholder="Hours" id="hours" type="number" min="1" max="24">-->
+                        <!--</div>-->
 
-                        <div class="col">
+                        <!--<div class="col">-->
                             <!--<label for="minutes">Minutes</label>-->
-                            <input class="form-control" placeholder="Minutes" id="minutes" type="number" min="0" max="59">
-                        </div><!-- minutes field -->
-
-
+                            <!--<input class="form-control" placeholder="Minutes" id="minutes" type="number" min="0" max="59">-->
+                        <!--</div>&lt;!&ndash; minutes field &ndash;&gt;-->
                     </div><!-- ends time fields -->
 
-                    <div class="form-row align-items-center form-group">
+                    <!--<div class="form-row align-items-center form-group">-->
 
-                        <div class="col">
+                        <!--<div class="col">-->
                             <!--<label for="date">Date</label>-->
                             <!--<input type="time" id="start" name="start"-->
                             <!--min="0:00" max="24:00" required>-->
-                            <input class="form-control" placeholder="Date" id="date" type="number" min="1" max="31">
-                        </div>
+                            <!--<input class="form-control" placeholder="Date" id="date" type="number" min="1" max="31">-->
+                        <!--</div>-->
 
                         <!--TODO fix month id in the calendar -->
-                        <div class="col">
+                        <!--<div class="col">-->
                             <!--<label for="months">Month</label>-->
-                            <input class="form-control" placeholder="Month" id="months" type="number" min="1" max="12">
-                        </div>
+                            <!--<input class="form-control" placeholder="Month" id="months" type="number" min="1" max="12">-->
+                        <!--</div>-->
 
-                        <div class="col">
+                        <!--<div class="col">-->
                             <!--<label for="years">Year</label>-->
-                            <input class="form-control" placeholder="Year" id="years" type="number" min="2019">
-                        </div>
-
-
-
-
-                    </div><!-- ends time fields -->
+                            <!--<input class="form-control" placeholder="Year" id="years" type="number" min="2019">-->
+                        <!--</div>-->
+    
+                    <!--</div>&lt;!&ndash; ends time fields &ndash;&gt;-->
 
                     <div class="form-group">
                         <!--<label for="location">Location</label>-->
@@ -118,7 +121,20 @@
                         <label class="custom-control-label" for="masterPointCheck">Masterpoint Tournament</label>
                     </div>
 
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        </div>
+                    </div>
+
                 </form>
+
+
+
 
             </div>
             <div class="modal-footer">

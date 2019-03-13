@@ -1,3 +1,5 @@
+
+
 (function () {
     "use strict"
 
@@ -149,6 +151,17 @@
             document.getElementById("month").innerText = monthName(currentDate);
             document.getElementById("year").innerText = currentDate.getFullYear();
             addClickListeners();
+
+            var datepicker = document.getElementById("date").flatpickr({
+                weekNumbers: true,
+                clickOpens: true,
+                time_24hr: true,
+                dateFormat: "Y-m-dTH:i",
+                altInput: true,
+                altFormat: "d.m.Y, H:i",
+                enableTime: true,
+                locale: "fi",
+            });
         }
 
         function addCalendarEventListeners() {
@@ -178,6 +191,10 @@
 
         }
 
+        function keyListeners(){
+            document.getElementById("month-prev").addEventListener("")
+        }
+
         document.getElementById("month-prev").addEventListener("click", function () {
             updateMonth(-1);
         });
@@ -191,6 +208,10 @@
 
     let calendar = new Calendar();
     Object.freeze(calendar);
+
+
+
+
 
 
 
