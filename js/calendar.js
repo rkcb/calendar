@@ -1,11 +1,10 @@
 
-
 (function () {
     "use strict"
 
     /**
      * creates a calendar logic and initializes the start date
-     * @param Date date start date
+     * @param Date date, by default current local date
      * @constructor
      */
     function Calendar(date = false){
@@ -152,16 +151,7 @@
             document.getElementById("year").innerText = currentDate.getFullYear();
             addClickListeners();
 
-            var datepicker = document.getElementById("date").flatpickr({
-                weekNumbers: true,
-                clickOpens: true,
-                time_24hr: true,
-                dateFormat: "Y-m-dTH:i",
-                altInput: true,
-                altFormat: "d.m.Y, H:i",
-                enableTime: true,
-                locale: "fi",
-            });
+
 
             function addUploadFileNames(){
                 let uploadElem = document.getElementById("upload");
@@ -225,7 +215,19 @@
     let calendar = new Calendar();
     Object.freeze(calendar);
 
+})();
 
+/*
+var datepicker = document.getElementById("date").flatpickr({
+    weekNumbers: false,
+    clickOpens: true,
+    // wrap: true,
+    // enableTime: true, // does not work with BS 4
 
-
-})()
+    // time_24hr: true,
+    dateFormat: "Y-m-dTH:i",
+    altInput: true,
+    altFormat: "d.m.Y",
+    locale: "fi",
+});
+*/

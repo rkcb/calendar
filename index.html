@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!-- Datetime localization -->
-    <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/fi.js"></script>
+    <!--<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>-->
+    <!--<script src="https://npmcdn.com/flatpickr/dist/l10n/fi.js"></script>-->
 
     <title>Calendar</title>
 </head>
@@ -62,19 +62,20 @@
                                   rows="3" value=""></textarea>
                     </div>
 
-                    <div class="form-row align-items-center form-group">
-                        <input type="time" id="date" name="start" placeholder="Select Date and Time">
-                        <!--<div class="col">-->
-                            <!--<label for="hours">Hours</label>-->
-                            <!--<input type="time" id="start" name="start"-->
-                            <!--min="0:00" max="24:00" required>-->
-                            <!--<input class="form-control" placeholder="Hours" id="hours" type="number" min="1" max="24">-->
-                        <!--</div>-->
+                    <div class="form-group">
+                        <!--<label for="location">Location</label>-->
+                        <!--<input type="text" class="form-control" id="description" placeholder="Description">-->
+                        <input type="text" name="date" id="date" placeholder="Date" class="form-control" value="">
+                    </div>
 
-                        <!--<div class="col">-->
+                    <div class="form-row align-items-center form-group">
+                        <div class="col-4">
+                            <input class="form-control" placeholder="Hours" id="hours" type="number" min="1" max="24">
+                        </div>:
+                        <div class="col-4">
                             <!--<label for="minutes">Minutes</label>-->
-                            <!--<input class="form-control" placeholder="Minutes" id="minutes" type="number" min="0" max="59">-->
-                        <!--</div>&lt;!&ndash; minutes field &ndash;&gt;-->
+                            <input class="form-control" placeholder="Minutes" name="minutes" id="minutes" type="number" min="0" max="59">
+                        </div><!-- minutes field -->
                     </div><!-- ends time fields -->
 
                     <!--<div class="form-row align-items-center form-group">-->
